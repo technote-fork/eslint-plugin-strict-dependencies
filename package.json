@@ -18,6 +18,6 @@
     "micromatch": "^4.0.4"
   },
   "scripts": {
-    "test": "jest --coverage --cache --bail"
+    "test": "jest --coverage"
   }
 }
