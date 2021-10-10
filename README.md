@@ -4,10 +4,20 @@ ESlint plugin to define custom module dependency rules.
 
 NOTE: `eslint-plugin-strict-dependencies` uses tsconfig, tsconfig.json must be present.
 
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<details>
+<summary>Details</summary>
+
+</details>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Installation
 
 ```
-npm install eslint-plugin-strict-dependencies --save-dev
+npm install @technote-space/eslint-plugin-strict-dependencies --save-dev
 ```
 
 ## Supported Rules
@@ -37,10 +47,10 @@ npm install eslint-plugin-strict-dependencies --save-dev
 
 ```js
 "plugins": [
-  "strict-dependencies",
+  "@technote-space/strict-dependencies",
 ],
 "rules": {
-  "strict-dependencies/strict-dependencies": [
+  "@technote-space/strict-dependencies/strict-dependencies": [
     "error",
     [
       /**
