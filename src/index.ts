@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const strictDependencies = require('./strict-dependencies')
+import strictDependencies from './strict-dependencies';
 
 module.exports = {
   rules: {
