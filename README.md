@@ -11,6 +11,12 @@ NOTE: `eslint-plugin-strict-dependencies` uses tsconfig, tsconfig.json must be p
 <details>
 <summary>Details</summary>
 
+- [Installation](#installation)
+- [Supported Rules](#supported-rules)
+  - [Options](#options)
+- [Usage](#usage)
+- [License](#license)
+
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
