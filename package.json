@@ -27,7 +27,7 @@
     "@types/node": "^16.10.3",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
-    "eslint": "^8.0.0",
+    "eslint": "^7.32.0",
     "husky": "^7.0.2",
     "is-glob": "^4.0.3",
     "jest": "^27.2.5",
@@ -42,7 +42,7 @@
     "lint": "eslint 'src/**/*.ts' '__tests__/**/*.ts' --cache",
     "lint:fix": "eslint --fix 'src/**/*.ts' '__tests__/**/*.ts'",
     "test": "yarn lint && yarn cover",
-    "update": "npx npm-check-updates -u && yarn install && yarn upgrade && yarn audit",
+    "update": "npx npm-check-updates -x eslint -u && yarn install && yarn upgrade && yarn audit",
     "prepare": "husky install"
   },
   "publishConfig": {
