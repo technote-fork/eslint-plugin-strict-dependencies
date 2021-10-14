@@ -1,7 +1,7 @@
 {
   "name": "@technote-space/eslint-plugin-strict-dependencies",
+  "version": "0.1.1",
   "description": "Restrict imports between files according to the configured dependency rules.",
-  "version": "0.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/technote-space/eslint-plugin-strict-dependencies.git"
@@ -19,6 +19,15 @@
   "files": [
     "build"
   ],
+  "scripts": {
+    "build": "rm -rf ./build && tsc",
+    "cover": "jest --coverage",
+    "lint": "eslint 'src/**/*.ts' '__tests__/**/*.ts' --cache",
+    "lint:fix": "eslint --fix 'src/**/*.ts' '__tests__/**/*.ts'",
+    "prepare": "husky install",
+    "test": "yarn lint && yarn cover",
+    "update": "npx npm-check-updates -x eslint -u && yarn install && yarn upgrade && yarn audit"
+  },
   "devDependencies": {
     "@commitlint/cli": "^13.2.1",
     "@commitlint/config-conventional": "^13.2.0",
@@ -35,15 +44,6 @@
     "micromatch": "^4.0.4",
     "ts-jest": "^27.0.6",
     "typescript": "^4.4.4"
-  },
-  "scripts": {
-    "build": "rm -rf ./build && tsc",
-    "cover": "jest --coverage",
-    "lint": "eslint 'src/**/*.ts' '__tests__/**/*.ts' --cache",
-    "lint:fix": "eslint --fix 'src/**/*.ts' '__tests__/**/*.ts'",
-    "test": "yarn lint && yarn cover",
-    "update": "npx npm-check-updates -x eslint -u && yarn install && yarn upgrade && yarn audit",
-    "prepare": "husky install"
   },
   "publishConfig": {
     "access": "public"
