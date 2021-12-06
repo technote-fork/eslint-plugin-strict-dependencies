@@ -17,7 +17,7 @@ jobs:
         run: echo "RUNNING=1" >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - uses: technote-space/get-git-comment-action@v1
-      - uses: technote-space/get-diff-action@v4
+      - uses: technote-space/get-diff-action@v5
         with:
           PATTERNS: +(src|__tests__)/**/*.+(js|ts)
           FILES: |
@@ -50,13 +50,13 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        node: ['12', '14', '15']
+        node: ['12', '14', '16']
     steps:
       - name: Set running flag
         run: echo "RUNNING=1" >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - uses: technote-space/get-git-comment-action@v1
-      - uses: technote-space/get-diff-action@v4
+      - uses: technote-space/get-diff-action@v5
         with:
           PATTERNS: +(src|__tests__)/**/*.+(js|ts|snap)
           FILES: |
