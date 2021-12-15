@@ -35,6 +35,8 @@ npm install @technote-space/eslint-plugin-strict-dependencies --save-dev
     - Paths of files where target module imports are allowed.
   - allowSameModule: `boolean`
     - Whether it can be imported by other files in the same directory
+  - allowTypeImport: `boolean`
+    - Whether to allow type import
 
 ### Options
 
@@ -46,6 +48,8 @@ npm install @technote-space/eslint-plugin-strict-dependencies --save-dev
    ```
      - `./bbb`: `resolveRelativeImport = false`
      - `src/components/bbb`: `resolveRelativeImport = true`
+- allowTypeImport: `boolean`
+  - Whether to allow type import
 
 ## Usage
 
@@ -68,7 +72,8 @@ npm install @technote-space/eslint-plugin-strict-dependencies --save-dev
         "module": "src/components/page",
         "allowReferenceFrom": ["src/pages"],
         // components/page can't import other components/page
-        "allowSameModule": false
+        "allowSameModule": false,
+        "allowTypeImport": true
       },
       {
         "module": "src/components/ui",
@@ -89,7 +94,8 @@ npm install @technote-space/eslint-plugin-strict-dependencies --save-dev
     ],
     // options
     // {
-    //   "resolveRelativeImport": true
+    //   "resolveRelativeImport": true,
+    //   "allowTypeImport": true
     // }
   ]
 }
