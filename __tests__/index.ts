@@ -203,6 +203,43 @@ describe('create.ImportDeclaration', () => {
     });
   });
 
+  it('should not report if allowed from type import', () => {
+    // relativePath: src/components/pages/aaa.ts
+    // importPath: src/components/ui/Text
+    // dependency.module: src/components/ui, dependency.allowReferenceFrom: ['src/components/pages']
+
+    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
+    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
+    const report = jest.fn();
+    const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
+      [{module: 'src/components/ui', allowReferenceFrom: ['src/aaa']}],
+      {allowTypeImport: true},
+    ], {getFilename, report}));
+
+    checkImport!({source: {value: '@/components/ui/Text'}, importKind: 'type'} as never);
+
+    expect(getFilename).not.toBeCalled();
+    expect(report).not.toBeCalled();
+  });
+
+  it('should not report if allowed from each type import', () => {
+    // relativePath: src/components/pages/aaa.ts
+    // importPath: src/components/ui/Text
+    // dependency.module: src/components/ui, dependency.allowReferenceFrom: ['src/components/pages'], allowTypeImport: true
+
+    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
+    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
+    const report = jest.fn();
+    const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
+      [{module: 'src/components/ui', allowReferenceFrom: ['src/aaa'], allowTypeImport: true}],
+    ], {getFilename, report}));
+
+    checkImport!({source: {value: '@/components/ui/Text'}, importKind: 'type'} as never);
+
+    expect(getFilename).toBeCalledTimes(1);
+    expect(report).not.toBeCalled();
+  });
+
   it('should pass relativeFilePath value to resolveImportPath if resolveRelativeImport is true', () => {
     (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
     const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));

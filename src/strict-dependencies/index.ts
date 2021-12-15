@@ -7,10 +7,12 @@ import type {TSESLint} from '@typescript-eslint/experimental-utils';
 type ModuleOption = {
   module: string;
   allowReferenceFrom: string[];
-  allowSameModule: boolean;
+  allowSameModule?: boolean;
+  allowTypeImport?: boolean;
 };
 type ExtraOptions = {
   resolveRelativeImport?: boolean;
+  allowTypeImport?: boolean;
 };
 
 /**
@@ -49,6 +51,9 @@ export default {
               allowSameModule: {
                 type: 'boolean',
               },
+              allowTypeImport: {
+                type: 'boolean',
+              },
             },
           },
         ],
@@ -68,8 +73,13 @@ export default {
     // eslint-disable-next-line no-magic-numbers
     const options = (context.options.length > 1 ? context.options[1] : {}) as ExtraOptions;
     const resolveRelativeImport = options.resolveRelativeImport;
+    const allowTypeImport = options.allowTypeImport;
 
     function checkImport(node) {
+      if (allowTypeImport && node.importKind === 'type') {
+        return;
+      }
+
       const fileFullPath = context.getFilename();
       const relativeFilePath = path.relative(process.cwd(), fileFullPath);
       const importPath = resolveImportPath(node.source.value, resolveRelativeImport ? relativeFilePath : undefined);
@@ -82,7 +92,8 @@ export default {
             dependency.allowReferenceFrom.some((allowPath) =>
               isMatch(relativeFilePath, allowPath),
             ) || // または同一モジュール間の参照が許可されている場合
-            (dependency.allowSameModule && isMatch(relativeFilePath, dependency.module));
+            (dependency.allowSameModule && isMatch(relativeFilePath, dependency.module)) ||
+            (dependency.allowTypeImport && node.importKind === 'type');
 
           if (!isAllowed) {
             context.report({
