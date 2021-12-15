@@ -1,7 +1,7 @@
 {
   "name": "@technote-space/eslint-plugin-strict-dependencies",
+  "version": "0.2.0",
   "description": "Restrict imports between files according to the configured dependency rules.",
-  "version": "0.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/technote-space/eslint-plugin-strict-dependencies.git"
@@ -19,31 +19,33 @@
   "files": [
     "build"
   ],
-  "devDependencies": {
-    "@commitlint/cli": "^13.2.1",
-    "@commitlint/config-conventional": "^13.2.0",
-    "@textlint/ast-node-types": "^12.0.0",
-    "@types/jest": "^27.0.2",
-    "@types/node": "^16.10.3",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "eslint": "^7.32.0",
-    "husky": "^7.0.2",
-    "is-glob": "^4.0.3",
-    "jest": "^27.2.5",
-    "lint-staged": "^11.2.2",
-    "micromatch": "^4.0.4",
-    "ts-jest": "^27.0.5",
-    "typescript": "^4.4.3"
-  },
   "scripts": {
     "build": "rm -rf ./build && tsc",
     "cover": "jest --coverage",
     "lint": "eslint 'src/**/*.ts' '__tests__/**/*.ts' --cache",
     "lint:fix": "eslint --fix 'src/**/*.ts' '__tests__/**/*.ts'",
+    "prepare": "husky install",
     "test": "yarn lint && yarn cover",
-    "update": "npx npm-check-updates -x eslint -u && yarn install && yarn upgrade && yarn audit",
-    "prepare": "husky install"
+    "update": "npm_config_yes=true npx npm-check-updates -u --timeout 100000 && yarn install && yarn upgrade && yarn audit"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "@textlint/ast-node-types": "^12.1.0",
+    "@types/is-glob": "^4.0.2",
+    "@types/jest": "^27.0.3",
+    "@types/micromatch": "^4.0.2",
+    "@types/node": "^16.11.13",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
+    "eslint": "^8.4.1",
+    "husky": "^7.0.4",
+    "is-glob": "^4.0.3",
+    "jest": "^27.4.5",
+    "lint-staged": "^12.1.2",
+    "micromatch": "^4.0.4",
+    "ts-jest": "^27.1.1",
+    "typescript": "^4.5.4"
   },
   "publishConfig": {
     "access": "public"
