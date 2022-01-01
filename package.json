@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/eslint-plugin-strict-dependencies",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Restrict imports between files according to the configured dependency rules.",
   "repository": {
     "type": "git",
@@ -29,20 +29,20 @@
     "update": "npm_config_yes=true npx npm-check-updates -u --timeout 100000 && yarn install && yarn upgrade && yarn audit"
   },
   "devDependencies": {
-    "@commitlint/cli": "^15.0.0",
-    "@commitlint/config-conventional": "^15.0.0",
+    "@commitlint/cli": "^16.0.1",
+    "@commitlint/config-conventional": "^16.0.0",
     "@textlint/ast-node-types": "^12.1.0",
     "@types/is-glob": "^4.0.2",
     "@types/jest": "^27.0.3",
     "@types/micromatch": "^4.0.2",
-    "@types/node": "^17.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.7.0",
-    "@typescript-eslint/parser": "^5.7.0",
-    "eslint": "^8.4.1",
+    "@types/node": "^17.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
+    "@typescript-eslint/parser": "^5.8.1",
+    "eslint": "^8.5.0",
     "husky": "^7.0.4",
     "is-glob": "^4.0.3",
     "jest": "^27.4.5",
-    "lint-staged": "^12.1.2",
+    "lint-staged": "^12.1.4",
     "micromatch": "^4.0.4",
     "ts-jest": "^27.1.2",
     "typescript": "^4.5.4"
