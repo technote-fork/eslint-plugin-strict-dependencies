@@ -2,7 +2,7 @@ import path from 'path';
 import mm from 'micromatch';
 import isGlob from 'is-glob';
 import resolveImportPath from './resolveImportPath';
-import type {TSESLint} from '@typescript-eslint/utils';
+import type { TSESLint } from '@typescript-eslint/utils';
 
 type ModuleOption = {
   module: string;
@@ -100,7 +100,7 @@ export default {
             context.report({
               node,
               messageId: 'importNotAllowed',
-              data: {importPath, relativeFilePath},
+              data: { importPath, relativeFilePath },
             });
           }
         });

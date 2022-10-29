@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import resolveImportPath from '../src/strict-dependencies/resolveImportPath';
-import {readFileSync} from 'fs';
+import resolveImportPath from './resolveImportPath';
+import { readFileSync } from 'fs';
 
 vi.mock('fs');
 

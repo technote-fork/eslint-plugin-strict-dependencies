@@ -6,4 +6,4 @@ module.exports = {
   rules: {
     'strict-dependencies': strictDependencies,
   },
-}
+};
