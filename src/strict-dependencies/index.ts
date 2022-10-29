@@ -1,8 +1,8 @@
-import path from 'path';
-import mm from 'micromatch';
-import isGlob from 'is-glob';
-import resolveImportPath from './resolveImportPath';
 import type { TSESLint } from '@typescript-eslint/utils';
+import path from 'path';
+import isGlob from 'is-glob';
+import mm from 'micromatch';
+import resolveImportPath from './resolveImportPath';
 
 type ModuleOption = {
   module: string;

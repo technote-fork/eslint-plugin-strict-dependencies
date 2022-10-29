@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any,no-magic-numbers,@typescript-eslint/no-non-null-assertion */
-import { describe, expect, it, vi } from 'vitest';
-import strictDependencies from '.';
 import path from 'path';
+import { describe, expect, it, vi } from 'vitest';
 import resolveImportPath from './resolveImportPath';
+import strictDependencies from '.';
 
 vi.mock('./resolveImportPath');
 
