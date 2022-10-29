@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any,no-magic-numbers,@typescript-eslint/no-non-null-assertion */
+import { describe, expect, it, vi } from 'vitest';
 import strictDependencies from '../src/strict-dependencies';
 import path from 'path';
 import resolveImportPath from '../src/strict-dependencies/resolveImportPath';
 
-jest.mock('../src/strict-dependencies/resolveImportPath');
+vi.mock('../src/strict-dependencies/resolveImportPath');
 
 const createContext = (options: any, props?: any): Parameters<typeof strictDependencies.create>[0] => ({
   id: 'id',
@@ -11,13 +12,13 @@ const createContext = (options: any, props?: any): Parameters<typeof strictDepen
   parserPath: 'parserPath',
   parserOptions: {},
   settings: {},
-  getAncestors: jest.fn(),
-  getDeclaredVariables: jest.fn(),
-  getFilename: jest.fn(),
-  getScope: jest.fn(),
-  getSourceCode: jest.fn(),
-  markVariableAsUsed: jest.fn(),
-  report: jest.fn(),
+  getAncestors: vi.fn(),
+  getDeclaredVariables: vi.fn(),
+  getFilename: vi.fn(),
+  getScope: vi.fn(),
+  getSourceCode: vi.fn(),
+  markVariableAsUsed: vi.fn(),
+  report: vi.fn(),
   ...props,
 });
 
@@ -31,9 +32,9 @@ describe('create', () => {
 
 describe('create.ImportDeclaration', () => {
   it('should do nothing if no dependencies', () => {
-    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/aaa/bbb.ts'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('src/components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/aaa/bbb.ts'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([[]], {getFilename, report}));
 
     checkImport!({source: {value: '@/components/ui/Text'}} as never);
@@ -46,9 +47,9 @@ describe('create.ImportDeclaration', () => {
     // importPath: src/components/ui/Text
     // dependency.module: src/libs
 
-    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/aaa/bbb.ts'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('src/components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/aaa/bbb.ts'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
       [{module: 'src/libs'}],
     ], {getFilename, report}));
@@ -64,9 +65,9 @@ describe('create.ImportDeclaration', () => {
     // importPath: src/components/ui/Text
     // dependency.module: src/components/ui, dependency.allowReferenceFrom: ['src/components/pages'], allowSameModule: true
 
-    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/pages/aaa.ts'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('src/components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/pages/aaa.ts'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
       [{module: 'src/components/ui', allowReferenceFrom: ['src/components/pages'], allowSameModule: true}],
     ], {getFilename, report}));
@@ -82,9 +83,9 @@ describe('create.ImportDeclaration', () => {
     // importPath: src/components/ui/Text
     // dependency.module: src/components/ui, dependency.allowReferenceFrom: ['src/components/**/*.ts'], allowSameModule: true
 
-    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/pages/aaa.ts'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('src/components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/pages/aaa.ts'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
       [{module: 'src/components/ui', allowReferenceFrom: ['src/components/**/*.ts'], allowSameModule: true}],
     ], {getFilename, report}));
@@ -100,9 +101,9 @@ describe('create.ImportDeclaration', () => {
     // importPath: src/components/ui/Text
     // dependency.module: src/components/ui, dependency.allowReferenceFrom: ['src/components/pages'], allowSameModule: true
 
-    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/test/aaa.ts'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('src/components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/test/aaa.ts'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
       [{module: 'src/components/ui', allowReferenceFrom: ['src/components/pages'], allowSameModule: true}],
     ], {getFilename, report}));
@@ -130,9 +131,9 @@ describe('create.ImportDeclaration', () => {
     // importPath: src/components/ui/Text
     // dependency.module: src/components/ui, dependency.allowReferenceFrom: ['src/components/**/*.ts'], allowSameModule: true
 
-    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/test/aaa.tsx'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('src/components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/test/aaa.tsx'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
       [{module: 'src/components/ui', allowReferenceFrom: ['src/components/**/*.ts'], allowSameModule: true}],
     ], {getFilename, report}));
@@ -160,9 +161,9 @@ describe('create.ImportDeclaration', () => {
     // importPath: src/components/ui/Text
     // dependency.module: src/components/ui, dependency.allowReferenceFrom: ['src/components/pages'], allowSameModule: true
 
-    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('src/components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
       [{module: 'src/components/ui', allowReferenceFrom: ['src/aaa'], allowSameModule: true}],
     ], {getFilename, report}));
@@ -178,9 +179,9 @@ describe('create.ImportDeclaration', () => {
     // importPath: src/components/ui/Text
     // dependency.module: src/components/ui, dependency.allowReferenceFrom: ['src/components/pages'], allowSameModule: true
 
-    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('src/components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
       [{module: 'src/components/ui', allowReferenceFrom: ['src/aaa'], allowSameModule: false}],
     ], {getFilename, report}));
@@ -208,9 +209,9 @@ describe('create.ImportDeclaration', () => {
     // importPath: src/components/ui/Text
     // dependency.module: src/components/ui, dependency.allowReferenceFrom: ['src/components/pages']
 
-    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('src/components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
       [{module: 'src/components/ui', allowReferenceFrom: ['src/aaa']}],
       {allowTypeImport: true},
@@ -227,9 +228,9 @@ describe('create.ImportDeclaration', () => {
     // importPath: src/components/ui/Text
     // dependency.module: src/components/ui, dependency.allowReferenceFrom: ['src/components/pages'], allowTypeImport: true
 
-    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('src/components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
       [{module: 'src/components/ui', allowReferenceFrom: ['src/aaa'], allowTypeImport: true}],
     ], {getFilename, report}));
@@ -241,9 +242,9 @@ describe('create.ImportDeclaration', () => {
   });
 
   it('should pass relativeFilePath value to resolveImportPath if resolveRelativeImport is true', () => {
-    (resolveImportPath as jest.Mock).mockReturnValue('src/components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('src/components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
       [{module: 'src/components/ui', allowReferenceFrom: ['src/aaa'], allowSameModule: true}],
       {resolveRelativeImport: true},
@@ -257,9 +258,9 @@ describe('create.ImportDeclaration', () => {
   });
 
   it('should pass empty relativeFilePath value to resolveImportPath if resolveRelativeImport is falsy', () => {
-    (resolveImportPath as jest.Mock).mockReturnValue('../components/ui/Text');
-    const getFilename = jest.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
-    const report = jest.fn();
+    vi.mocked(resolveImportPath).mockReturnValue('../components/ui/Text');
+    const getFilename = vi.fn(() => path.join(process.cwd(), 'src/components/ui/aaa.ts'));
+    const report = vi.fn();
     const {ImportDeclaration: checkImport} = strictDependencies.create(createContext([
       [{module: 'src/components/ui', allowReferenceFrom: ['src/aaa'], allowSameModule: true}],
     ], {getFilename, report}));
