@@ -25,6 +25,7 @@ const isMatch = (str: string, pattern: string): boolean =>
   isGlob(pattern) ? mm.isMatch(str, pattern) : str.startsWith(pattern);
 
 export default {
+  defaultOptions: [[]],
   meta: {
     type: 'suggestion',
     messages: {
