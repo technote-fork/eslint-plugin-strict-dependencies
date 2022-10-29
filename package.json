@@ -14,23 +14,31 @@
       "url": "https://technote.space"
     }
   ],
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
-    "build"
+    "dist"
   ],
   "scripts": {
-    "build": "rm -rf ./build && tsc",
+    "build": "tsc --emitDeclarationOnly && rollup -c",
     "cover": "vitest run --coverage",
     "lint": "eslint 'src/**/*.ts' --cache",
     "lint:fix": "eslint --fix 'src/**/*.ts'",
     "prepare": "husky install",
-    "test": "yarn lint && yarn cover",
+    "test": "yarn lint && yarn typecheck && yarn cover",
+    "typecheck": "tsc --noEmit",
     "update": "npm_config_yes=true npx npm-check-updates -u --timeout 100000 && yarn install && yarn upgrade && yarn audit"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "@rollup/plugin-typescript": "^9.0.2",
+    "@sindresorhus/tsconfig": "^3.0.1",
     "@textlint/ast-node-types": "^12.2.2",
     "@types/is-glob": "^4.0.2",
     "@types/micromatch": "^4.0.2",
@@ -44,6 +52,7 @@
     "is-glob": "^4.0.3",
     "lint-staged": "^13.0.3",
     "micromatch": "^4.0.5",
+    "rollup": "^3.2.3",
     "typescript": "^4.8.4",
     "vitest": "^0.24.3"
   },

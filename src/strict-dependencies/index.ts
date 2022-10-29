@@ -2,7 +2,7 @@ import type { TSESLint } from '@typescript-eslint/utils';
 import path from 'path';
 import isGlob from 'is-glob';
 import mm from 'micromatch';
-import resolveImportPath from './resolveImportPath';
+import resolveImportPath from './resolveImportPath.js';
 
 type ModuleOption = {
   module: string;

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any,no-magic-numbers,@typescript-eslint/no-non-null-assertion */
 import path from 'path';
 import { describe, expect, it, vi } from 'vitest';
-import resolveImportPath from './resolveImportPath';
-import strictDependencies from '.';
+import resolveImportPath from './resolveImportPath.js';
+import strictDependencies from './index.js';
 
 vi.mock('./resolveImportPath');
 
@@ -112,7 +112,7 @@ describe('create.ImportDeclaration', () => {
 
     expect(getFilename).toBeCalledTimes(1);
     expect(report.mock.calls).toHaveLength(1);
-    expect(report.mock.calls[0][0]).toEqual({
+    expect(report.mock.calls[0]![0]).toEqual({
       node: {
         source: {
           value: '@/components/ui/Text',
@@ -142,7 +142,7 @@ describe('create.ImportDeclaration', () => {
 
     expect(getFilename).toBeCalledTimes(1);
     expect(report.mock.calls).toHaveLength(1);
-    expect(report.mock.calls[0][0]).toEqual({
+    expect(report.mock.calls[0]![0]).toEqual({
       node: {
         source: {
           value: '@/components/ui/Text',
@@ -190,7 +190,7 @@ describe('create.ImportDeclaration', () => {
 
     expect(getFilename).toBeCalledTimes(1);
     expect(report.mock.calls).toHaveLength(1);
-    expect(report.mock.calls[0][0]).toEqual({
+    expect(report.mock.calls[0]![0]).toEqual({
       node: {
         source: {
           value: '@/components/ui/Text',

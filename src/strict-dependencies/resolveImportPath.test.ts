@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import { describe, expect, it, vi } from 'vitest';
-import resolveImportPath from './resolveImportPath';
+import resolveImportPath from './resolveImportPath.js';
 
 vi.mock('fs');
 
@@ -43,7 +43,7 @@ describe('resolveImportPath', () => {
         vi.mocked(readFileSync).mockReturnValue(JSON.stringify({
           compilerOptions: {
             paths: {
-              [target]: [resolve],
+              [`${target}`]: [resolve],
             },
           },
         }));
@@ -64,7 +64,7 @@ describe('resolveImportPath', () => {
       ['src/', 'src/components/aaa/bbb'],
       ['./src/', 'src/components/aaa/bbb'],
     ].forEach(([baseUrl, expected]) => {
-      it(baseUrl, () => {
+      it(`${baseUrl}`, () => {
         vi.mocked(readFileSync).mockReturnValue(JSON.stringify({
           compilerOptions: {
             baseUrl,
