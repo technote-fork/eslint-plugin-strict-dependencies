@@ -1,8 +1,8 @@
+import type { TSESLint } from '@typescript-eslint/utils';
 import path from 'path';
-import mm from 'micromatch';
 import isGlob from 'is-glob';
-import resolveImportPath from './resolveImportPath';
-import type {TSESLint} from '@typescript-eslint/utils';
+import mm from 'micromatch';
+import resolveImportPath from './resolveImportPath.js';
 
 type ModuleOption = {
   module: string;
@@ -25,6 +25,7 @@ const isMatch = (str: string, pattern: string): boolean =>
   isGlob(pattern) ? mm.isMatch(str, pattern) : str.startsWith(pattern);
 
 export default {
+  defaultOptions: [[]],
   meta: {
     type: 'suggestion',
     messages: {
@@ -99,7 +100,7 @@ export default {
             context.report({
               node,
               messageId: 'importNotAllowed',
-              data: {importPath, relativeFilePath},
+              data: { importPath, relativeFilePath },
             });
           }
         });

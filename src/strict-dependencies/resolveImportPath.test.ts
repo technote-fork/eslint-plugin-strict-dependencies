@@ -1,14 +1,15 @@
-import resolveImportPath from '../src/strict-dependencies/resolveImportPath';
-import {readFileSync} from 'fs';
+import { readFileSync } from 'fs';
+import { describe, expect, it, vi } from 'vitest';
+import resolveImportPath from './resolveImportPath.js';
 
-jest.mock('fs');
+vi.mock('fs');
 
 describe('resolveImportPath', () => {
   it('should resolve relative path', () => {
     // > src/pages/aaa/bbb.ts
     // import Text from '../../components/ui/Text'
 
-    (readFileSync as jest.Mock).mockReturnValue(JSON.stringify({}));
+    vi.mocked(readFileSync).mockReturnValue(JSON.stringify({}));
     expect(resolveImportPath('../../components/ui/Text', 'src/pages/aaa/bbb.ts')).toBe('src/components/ui/Text');
   });
 
@@ -16,19 +17,19 @@ describe('resolveImportPath', () => {
     // > src/pages/aaa/bbb.ts
     // import Text from '../../components/ui/Text'
 
-    (readFileSync as jest.Mock).mockReturnValue(JSON.stringify({}));
+    vi.mocked(readFileSync).mockReturnValue(JSON.stringify({}));
     expect(resolveImportPath('../../components/ui/Text')).toBe('../../components/ui/Text');
   });
 
   it('should do nothing if tsconfig.json does not exist', () => {
-    (readFileSync as jest.Mock).mockImplementation(() => {
+    vi.mocked(readFileSync).mockImplementation(() => {
       throw new Error();
     });
     expect(resolveImportPath('components/aaa/bbb')).toBe('components/aaa/bbb');
   });
 
   it('should do nothing if no paths setting', () => {
-    (readFileSync as jest.Mock).mockReturnValue(JSON.stringify({}));
+    vi.mocked(readFileSync).mockReturnValue(JSON.stringify({}));
     expect(resolveImportPath('components/aaa/bbb')).toBe('components/aaa/bbb');
   });
 
@@ -39,10 +40,10 @@ describe('resolveImportPath', () => {
       ['@/components/*', 'components/*', 'components/aaa/bbb'],
     ].forEach(([target, resolve, expected]) => {
       it(`${target}: [${resolve}]`, () => {
-        (readFileSync as jest.Mock).mockReturnValue(JSON.stringify({
+        vi.mocked(readFileSync).mockReturnValue(JSON.stringify({
           compilerOptions: {
             paths: {
-              [target]: [resolve],
+              [`${target}`]: [resolve],
             },
           },
         }));
@@ -63,8 +64,8 @@ describe('resolveImportPath', () => {
       ['src/', 'src/components/aaa/bbb'],
       ['./src/', 'src/components/aaa/bbb'],
     ].forEach(([baseUrl, expected]) => {
-      it(baseUrl, () => {
-        (readFileSync as jest.Mock).mockReturnValue(JSON.stringify({
+      it(`${baseUrl}`, () => {
+        vi.mocked(readFileSync).mockReturnValue(JSON.stringify({
           compilerOptions: {
             baseUrl,
             paths: {

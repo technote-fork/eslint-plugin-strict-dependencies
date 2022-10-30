@@ -27,7 +27,7 @@ export default (importPath: string, relativeFilePath?: string): string => {
       const paths = compilerOptions.paths;
       Object.keys(paths).forEach((key) => {
         // FIXME: このlint ruleではimport先が存在するかチェックしておらず、複数のパスから正しい方を選択できないため[0]固定
-        importAliasMap[key] = compilerOptions.baseUrl ? path.join(compilerOptions.baseUrl, paths[key][0]) : paths[key][0];
+        importAliasMap[key] = compilerOptions.baseUrl ? path.join(compilerOptions.baseUrl, paths[key]![0]!) : paths[key]![0];
       });
     }
   } catch (error) {
