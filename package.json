@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/eslint-plugin-strict-dependencies",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Restrict imports between files according to the configured dependency rules.",
   "repository": {
     "type": "git",
@@ -35,26 +35,26 @@
     "update": "npm_config_yes=true npx npm-check-updates -u --timeout 100000 && yarn install && yarn upgrade && yarn audit"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.3",
-    "@commitlint/config-conventional": "^17.6.3",
-    "@rollup/plugin-typescript": "^11.1.0",
-    "@sindresorhus/tsconfig": "^3.0.1",
-    "@textlint/ast-node-types": "^13.3.2",
-    "@types/is-glob": "^4.0.2",
-    "@types/micromatch": "^4.0.2",
-    "@types/node": "^18.16.3",
-    "@typescript-eslint/eslint-plugin": "^5.59.2",
-    "@typescript-eslint/parser": "^5.59.2",
-    "@vitest/coverage-c8": "^0.31.0",
-    "eslint": "^8.39.0",
-    "eslint-plugin-import": "^2.27.5",
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@sindresorhus/tsconfig": "^5.0.0",
+    "@textlint/ast-node-types": "^13.4.1",
+    "@types/is-glob": "^4.0.4",
+    "@types/micromatch": "^4.0.6",
+    "@types/node": "^20.10.5",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "@vitest/coverage-c8": "^0.33.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-import": "^2.29.1",
     "husky": "^8.0.3",
     "is-glob": "^4.0.3",
-    "lint-staged": "^13.2.2",
+    "lint-staged": "^15.2.0",
     "micromatch": "^4.0.5",
-    "rollup": "^3.21.4",
-    "typescript": "^5.0.4",
-    "vitest": "^0.31.0"
+    "rollup": "^4.9.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0"
   },
   "publishConfig": {
     "access": "public"
